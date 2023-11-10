@@ -1,0 +1,58 @@
+mounting ....
+access(),  / 4
+getattr(),  /.Trash
+getattr(),  /.Trash-1001
+getattr(),  /testfile.txt
+getattr(),  /testfile.txt
+create(),  /testfile.txt
+getattr(),  /testfile.txt
+write(),  /testfile.txt b'Hello Students, I am Piyush Chaudhari.' 0 6
+flush(),  /testfile.txt 6
+release(),  /testfile.txt 6
+open(),  /testfile.txt
+getattr(),  /testfile.txt
+read(),  /testfile.txt 4096 0 6
+flush(),  /testfile.txt 6
+release(),  /testfile.txt 6
+getattr(),  /folder1
+mkdir(),  /folder1 509
+getattr(),  /folder1
+opendir(),  /folder1
+readdir(),  /folder1 6
+rmdir(),  /folder1
+getattr(),  /folder1
+getattr(),  /file_to_delete.txt
+create(),  /file_to_delete.txt
+getattr(),  /file_to_delete.txt
+write(),  /file_to_delete.txt b'Hello Students, I am Piyush Chaudhari.\nFile to delete it is.' 0 7
+flush(),  /file_to_delete.txt 7
+release(),  /file_to_delete.txt 7
+getattr(),  /file_to_delete.txt
+unlink(),  /file_to_delete.txt
+getattr(),  /old_file.txt
+create(),  /old_file.txt
+getattr(),  /old_file.txt
+write(),  /old_file.txt b'Hello Students, I am Piyush Chaudhari.' 0 7
+flush(),  /old_file.txt 7
+release(),  /old_file.txt 7
+getattr(),  /new_file.txt
+create(),  /new_file.txt
+getattr(),  /new_file.txt
+write(),  /new_file.txt b'Hello Students, I am Piyush Chaudhari.' 0 7
+flush(),  /new_file.txt 7
+release(),  /new_file.txt 7
+getattr(),  /old_file.txt
+getattr(),  /new_file.txt
+rename(),  /old_file.txt /new_file.txt
+[<Blob: eccfsbucket, old_file.txt, 1699491009540497>]
+getattr(),  /old_folder
+getattr(),  /new_folder
+getattr(),  /old_folder
+mkdir(),  /old_folder 509
+getattr(),  /old_folder
+getattr(),  /new_folder
+mkdir(),  /new_folder 509
+getattr(),  /new_folder
+getattr(),  /new_folder
+rename(),  /old_folder /new_folder
+[<Blob: eccfsbucket, old_folder/, 1699491010530665>]
