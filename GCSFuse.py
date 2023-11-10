@@ -207,7 +207,7 @@ class GCSFuse(LoggingMixIn, Operations):
         return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
 
     def read(self, path, length, offset, fh):
-        logging.info("readdir() called.")
+        logging.info("read() called.")
         # print("read(), ", path, length, offset, fh)
         os.lseek(fh, offset, os.SEEK_SET)
         return os.read(fh, length)
