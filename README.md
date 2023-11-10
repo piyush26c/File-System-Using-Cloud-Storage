@@ -27,7 +27,7 @@
   
      `$python3 GCSFuse.py <local_folder_name> <google_cloud_bucket_storage_name> <mount_folder_name>`
      
-     In screenshots, I pasted in reports, I have executed following command, where `google_cloud_bucket_storage_name=eccfsbucket` is already created on my account. Also, the `local_folder_name=local_folder` and `mount_folder_name=mount_folder` are created inside the `/eccfsassignment` folder.
+     In screenshots, pasted in report, I have executed following command, where `google_cloud_bucket_storage_name=eccfsbucket` is already created on my account. Also, the `local_folder_name=local_folder` and `mount_folder_name=mount_folder` are created inside the `/eccfsassignment` folder.
      
      `$python3 GCSFuse.py local_folder eccfsbucket mount_folder`
      
