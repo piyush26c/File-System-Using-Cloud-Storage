@@ -29,7 +29,6 @@ class GCSFuse(LoggingMixIn, Operations):
         '''
         Downloads the files and directories from Google Cloud Storage to specified mount_folder location.
         '''
-
         blobs = list(self.bucket.list_blobs())
         for blob in blobs:
             local_path = os.path.join(self.root, blob.name)
@@ -39,9 +38,6 @@ class GCSFuse(LoggingMixIn, Operations):
                 # Download the object if it's a file
                 os.makedirs(os.path.dirname(local_path), exist_ok=True)
                 blob.download_to_filename(local_path)
-
-    # Helpers
-    # =======
 
     def _full_path(self, partial):
         # print("_full_path:", partial)
@@ -58,14 +54,6 @@ class GCSFuse(LoggingMixIn, Operations):
         if not os.access(full_path, mode):
             raise FuseOSError(errno.EACCES)
 
-    # def chmod(self, path, mode):
-    #     full_path = self._full_path(path)
-    #     return os.chmod(full_path, mode)
-
-    # def chown(self, path, uid, gid):
-    #     full_path = self._full_path(path)
-    #     return os.chown(full_path, uid, gid)
-
     def getattr(self, path, fh=None):
         logging.info("getattr() called.")
         # print("getattr(), ", path)
@@ -75,6 +63,7 @@ class GCSFuse(LoggingMixIn, Operations):
                      'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
 
     def readdir(self, path, fh):
+        logging.info("readdir() called.")
         # print("readdir(), ", path, fh)
         full_path = self._full_path(path)
 
@@ -85,6 +74,7 @@ class GCSFuse(LoggingMixIn, Operations):
             yield r
 
     def readlink(self, path):
+        logging.info("readlink() called.")
         # print("readlink(), ", path)
         pathname = os.readlink(self._full_path(path))
         if pathname.startswith("/"):
@@ -94,10 +84,12 @@ class GCSFuse(LoggingMixIn, Operations):
             return pathname
 
     def mknod(self, path, mode, dev):
+        logging.info("mknod() called.")
         # print("mknod(), ", path, mode, dev)
         return os.mknod(self._full_path(path), mode, dev)
 
     def rmdir(self, path):
+        logging.info("rmdir() called.")
         # print("rmdir(), ", path)
         full_path = self._full_path(path)
         # print("rmdir() is called full path", full_path)
@@ -109,17 +101,19 @@ class GCSFuse(LoggingMixIn, Operations):
         return os.rmdir(full_path)
 
     def mkdir(self, path, mode):
+        logging.info("mkdir() called.")
         # print("mkdir(), ", path, mode)
         blob = self.bucket.blob(path[1:] + "/")
         blob.upload_from_string("")
         return os.mkdir(self._full_path(path), mode)
 
     def opendir(self, path):
-        'Returns a numerical file handle.'
+        'Returns a opendir file handle.'
         # print("opendir(), ", path)
         return os.open(self._full_path(path), os.O_DIRECTORY | os.O_RDONLY)
     
     def statfs(self, path):
+        logging.info("statfs() called.")
         # print("statfs(), ", path)
         full_path = self._full_path(path)
         stv = os.statvfs(full_path)
@@ -131,6 +125,7 @@ class GCSFuse(LoggingMixIn, Operations):
         '''
         unlink is used to remove(delete) a file from the file system.
         '''
+        logging.info("unlink() called.")
         # print("unlink(), ", path)
         # removing from gcs bucket
         # reference: https://cloud.google.com/storage/docs/deleting-objects#storage-delete-object-python
@@ -145,10 +140,12 @@ class GCSFuse(LoggingMixIn, Operations):
         return os.unlink(self._full_path(path))
 
     def symlink(self, name, target):
+        logging.info("symlink() called.")
         # print("symlink(), ", name, target)
         return os.symlink(name, self._full_path(target))
 
     def rename(self, old, new):
+        logging.info("rename() called.")
         # print("rename(), ", old, new)
         status = os.rename(self._full_path(old), self._full_path(new))
 
@@ -184,22 +181,23 @@ class GCSFuse(LoggingMixIn, Operations):
         return status
 
     def link(self, target, name):
+        logging.info("link() called.")
         # print("link(), ", target, name)
         return os.link(self._full_path(target), self._full_path(name))
 
     def utimens(self, path, times=None):
+        logging.info("utimens() called.")
         # print("utimens(), ", path)
         return os.utime(self._full_path(path), times)
 
-    # File methods
-    # ============
-
     def open(self, path, flags):
+        logging.info("open() called.")
         # print("open(), ", path)
         full_path = self._full_path(path)
         return os.open(full_path, flags)
 
     def create(self, path, mode, fi=None):
+        logging.info("create() called.")
         # print("create(), ", path)
         # logging.debug("path:")
         blob = self.bucket.blob(path[1:])
@@ -209,11 +207,13 @@ class GCSFuse(LoggingMixIn, Operations):
         return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
 
     def read(self, path, length, offset, fh):
+        logging.info("readdir() called.")
         # print("read(), ", path, length, offset, fh)
         os.lseek(fh, offset, os.SEEK_SET)
         return os.read(fh, length)
 
     def write(self, path, buf, offset, fh):
+        logging.info("write() called.")
         # print("write(), ", path, buf, offset, fh)
         os.lseek(fh, offset, os.SEEK_SET)
         written = os.write(fh, buf)
@@ -228,6 +228,7 @@ class GCSFuse(LoggingMixIn, Operations):
         return written
 
     def truncate(self, path, length, fh=None):
+        logging.info("truncate() called.")
         # print("truncate(), ", path, length)
         full_path = self._full_path(path)
         with open(full_path, 'r+') as f:
@@ -237,14 +238,17 @@ class GCSFuse(LoggingMixIn, Operations):
         '''
         Clears buffers for this stream and causes any buffered data to be written to the file.
         '''
+        logging.info("flush() called.")
         # print("flush(), ", path, fh)
         return os.fsync(fh)
 
     def release(self, path, fh):
+        logging.info("release() called.")
         # print("release(), ", path, fh)
         return os.close(fh)
 
     def fsync(self, path, fdatasync, fh):
+        logging.info("fsync() called.")
         # print("fsync(), ", path, fdatasync, fh)
         return self.flush(path, fh)
 
