@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Check if Python 3.8.10 or greater is installed
+# Check if Python 3.8.10 or greater is installe
 required_version="3.8.10"
 current_version=$(python3 -c "import sys; print(sys.version.split()[0])")
 
