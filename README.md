@@ -1,7 +1,16 @@
 # Implementation of standard file system with backend storage of google cloud storage using FUSE
 
-`GCSFuse.py` is a main file that contains the implementation.
+### Understanding the FUSE:
+![alt text](https://github.com/piyush26c/File-System-Using-Cloud-Storage/blob/main/diagrams/fuseexplain.png)
 
+
+<br>
+
+### Architecture Diagram:
+![alt text](https://github.com/piyush26c/File-System-Using-Cloud-Storage/blob/main/diagrams/design.png)
+
+`GCSFuse.py` is the main file that contains the implementation.
+<br>
 `install_requirements.sh` file will install all required dependencies in your local machine / VM (depending on user).
 
 
@@ -9,9 +18,9 @@
 
 **How to setup the environment to run the code?**
 
-  1. I personally developed this code using VM because as a user I need a sudo access to mount and unmount the local directories which luddy servers wont' provide.
+  1. I personally developed this code using VM because, as a user, I need sudo access to mount and unmount the local directories which luddy servers wont' provide.
   2. If you want to test the code on/using VM, then just execute the bash script provided with submission named as `start_setup.sh` file. This bash script will create a VM, SSH into VM and last download and install all required dependencies. That's it, you are ready to execute the code. After you execute all the required material and review you can run the `stop_setup.sh` to stop and delete the vm.
-  3. If you want to test the code on your local linux machine, do no execute the `start_setup.sh` bash script, instead copy the code provided (/eccfsassignment.zip) into your machine and unzip the code and execute the following commands(this will install the dependencies.).
+  3. If you want to test the code on your local Linux machine, do not execute the `start_setup.sh` bash script; instead, copy the code provided (/eccfsassignment.zip) into your machine, unzip the code, and execute the following commands(this will install the dependencies.).
         - `cd eccfsassignment`
         - `chmod +x install_requirements.sh`
         - `sudo ./install_requirements.sh`
