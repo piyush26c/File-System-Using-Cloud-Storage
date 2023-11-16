@@ -1,4 +1,10 @@
-# Implementation of standard file system with backend storage of google cloud storage using FUSE
+# Implementation of a standard file system that uses Google Cloud storage object.
+
+Usually, file systems are implemented inside the OS kernel. However, it is possible to implement them in userspace. FUSE is a File system in User Space.
+
+If a directory is mounted using FUSE, the kernel "forwards" the FS system calls to the user-space FUSE handler. The main challenge is to implement and handle the various FS calls.
+
+Implementation provided in this repository solves the challenge using the component [libfuse](https://github.com/libfuse/libfuse).
 
 ### Understanding the FUSE:
 ![alt text](https://github.com/piyush26c/File-System-Using-Cloud-Storage/blob/main/diagrams/fuseexplain.png)
