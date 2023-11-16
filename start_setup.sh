@@ -1,4 +1,4 @@
-echo "For ECC ASSIGNMENT: File Systems Using Cloud Storage"
+echo "File Systems Using Cloud Storage"
 echo "Creating a VM and installing dependencies."
 
 echo "Creating Server VM instace..."
