@@ -1,4 +1,4 @@
-# ECC Assignment (Implementation of standard file system with backend storage of google cloud storage using FUSE)
+# Implementation of standard file system with backend storage of google cloud storage using FUSE
 
 `GCSFuse.py` is a main file that contains the implementation.
 
